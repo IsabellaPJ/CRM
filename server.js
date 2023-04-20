@@ -72,7 +72,4 @@ conn.login('your_salesforce_username', 'your_salesforce_password_with_security_t
   });
 });
 
-app.listen(3000, function() {
-  console.log('Express server listening on port 3000');
-});
 
