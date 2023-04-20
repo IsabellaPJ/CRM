@@ -33,3 +33,46 @@ app.set('port', process.env.PORT || 8888);
 const server = app.listen(app.get('port'), () => {
   console.log(`Express running → On PORT : ${server.address().port}`);
 });
+
+const express = require('express');
+const jsforce = require('jsforce');
+
+const app = express();
+
+const conn = new jsforce.Connection({
+  loginUrl: 'https://login.salesforce.com'
+});
+
+conn.login('your_salesforce_username', 'your_salesforce_password_with_security_token', function(err, res) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  console.log('Logged in to Salesforce');
+
+  // Query some data from Salesforce
+  conn.query("SELECT Id, Name FROM Account", function(err, result) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    console.log('Query result:', result.records);
+
+    // Close the connection
+    conn.logout(function(err) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      console.log('Logged out from Salesforce');
+    });
+  });
+});
+
+app.listen(3000, function() {
+  console.log('Express server listening on port 3000');
+});
+
