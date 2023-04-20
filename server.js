@@ -40,7 +40,7 @@ const jsforce = require('jsforce');
 const app = express();
 
 const conn = new jsforce.Connection({
-  loginUrl: 'https://login.salesforce.com'
+  loginUrl: "https://developer.salesforce.com/docs/apis"
 });
 
 conn.login('your_salesforce_username', 'your_salesforce_password_with_security_token', function(err, res) {
